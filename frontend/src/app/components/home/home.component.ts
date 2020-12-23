@@ -21,31 +21,7 @@ export interface Favorite {
 
 @Component({
   selector: 'app-home',
-  template: `
-  <mat-grid-list cols="4" rowHeight="3:2" [gutterSize]="'10px'">
-    <mat-grid-tile *ngFor="let favorite of favorites">
-      <mat-card class="mat-focus-indicator card">
-        <button mat-mini-fab color="warn" class="delete-button" *ngIf="edit" (click)="delete(favorite)">
-          <mat-icon>delete</mat-icon>
-        </button>
-       
-          <mat-card-title class="card-header"> <a [routerLink]="['/favorite', favorite.ID]">{{favorite.Name}} </a>  </mat-card-title>
-       
-        <div class="card-divider" *ngIf="favorite.Cities.length > 0"></div>
-        <mat-card-content class="mat-card-content docs-guide-card-summary">
-        <p><span *ngFor="let city of favorite.Cities;let i = index">{{city.Name}} {{i < favorite.Cities.length -1 ? ', ': ''}} </span></p>
-        </mat-card-content>
-      </mat-card>
-    
-    </mat-grid-tile>
-    <mat-grid-tile>     
-      <button mat-raised-button color="warn" (click)="openDialog()" *ngIf="edit">Add new Collection <mat-icon>add</mat-icon></button>
-    </mat-grid-tile>
-  </mat-grid-list>
-  <nav>
-    <button mat-raised-button color="warn"  (click)="edit = !edit" class="edit-button">{{edit ? 'close' : 'open'}} edit mode</button>
-  </nav>
-  `
+  templateUrl: 'home.component.html'
 })
 export class HomeComponent implements OnInit {
 
@@ -106,19 +82,7 @@ export class HomeComponent implements OnInit {
 
 @Component({
   selector: 'dialog-add-favorites',
-  template: `
-  <div mat-dialog-content>
-    <p>What should we call the new collection?</p>
-    <mat-form-field>
-      <mat-label>Name</mat-label>
-      <input matInput [(ngModel)]="data.name" placeholder="...">
-    </mat-form-field>
-  </div>
-  <div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">Cancel</button>
-    <button mat-button [mat-dialog-close]="data.name" cdkFocusInitial>Ok</button>
-  </div>
-  `
+  templateUrl: 'dialog.component.html'
 })
 export class DialogAddFavorites {
 

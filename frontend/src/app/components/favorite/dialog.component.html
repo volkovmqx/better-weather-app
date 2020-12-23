@@ -1,0 +1,23 @@
+<div mat-dialog-content>
+    <p>Looking for a city?</p>
+    <form class="form">
+    <mat-form-field class="full-width">
+      <input matInput
+            placeholder="City"
+            aria-label="City"
+            [matAutocomplete]="auto"
+            [formControl]="cityCtrl">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngIf="city?.id" [value]="city.name" >
+          <img class="option-img" aria-hidden [src]="city.icons_base_url+city.weather[0].icon+'@2x.png'" height="25">
+          <span>{{city.name}}</span> |
+          <small>{{city.weather[0].description}} <span> {{city.main.temp| number:'1.0-0'}}°C </span></small>
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button [mat-dialog-close]="city" cdkFocusInitial>Ok</button>
+  </div>

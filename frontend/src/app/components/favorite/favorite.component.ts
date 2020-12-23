@@ -20,50 +20,7 @@ export interface Favorite {
 
 @Component({
   selector: 'app-favorite',
-  template: `
-    <mat-grid-list cols="4" rowHeight="3:3" [gutterSize]="'10px'">
-    <mat-grid-tile *ngFor="let city of cities">
-      <mat-card class="mat-focus-indicator card text-center">
-          <button mat-mini-fab color="warn" class="delete-button" *ngIf="edit" (click)="delete(city)">
-            <mat-icon>delete</mat-icon>
-          </button>
-          <img [src]="'http://openweathermap.org/img/wn/'+city.weather[0].icon+'@2x.png'" alt="" />
-          <mat-card-title class="card-header">{{city.name}} <br>{{city.weather[0].description}} {{city.main.temp| number:'1.0-0'}}°C</mat-card-title>
-        
-        <div class="card-divider"></div>
-        <mat-card-content class="mat-card-content docs-guide-card-summary">
-        <p>
-          
-        Feels like: <span>{{city.main.feels_like| number:'1.0-0'}}°C</span>
-        Max:  <span>{{city.main.temp_max| number:'1.0-0'}}°C</span>
-        Min:  <span>{{city.main.temp_min| number:'1.0-0'}}°C</span>
-        
-        </p>
-        <mat-divider [inset]="true"></mat-divider>
-        <p>
-        Humidity:  <span>{{city.main.humidity}}%</span>
-        Pressure:  <span>{{city.main.pressure}}hPa</span>
-        </p>
-        <mat-divider [inset]="true"></mat-divider>
-        <p>
-        Sunrise: <span>{{ timeStampToTime(city.sys.sunrise) }}</span>
-        Sunset: <span>{{ timeStampToTime(city.sys.sunset) }}</span>
-        </p>
-        </mat-card-content>
-      </mat-card>
-    
-    </mat-grid-tile>
-    <mat-grid-tile>   
-      <button mat-raised-button color="warn" *ngIf="edit" (click)="openDialog()">Add new City <mat-icon>add</mat-icon></button>
-    </mat-grid-tile>
-  </mat-grid-list>
-  <nav>
-    <a mat-raised-button color="warn" [routerLink]="'/'"><mat-icon>keyboard_arrow_left</mat-icon></a>
-    <button mat-raised-button color="warn"  (click)="edit = !edit" class="edit-button">{{edit ? 'close' : 'open'}} edit mode</button>
-  </nav>
-  `,
-  styles: [
-  ]
+  templateUrl: 'favorite.component.html'
 })
 export class FavoriteComponent implements OnInit {
 
@@ -136,33 +93,7 @@ export class FavoriteComponent implements OnInit {
 @Component({
   selector: 'dialog-add-favorites',
   styleUrls: ['favorite.component.scss'],
-  template: `
-
-
-  <div mat-dialog-content>
-    <p>Looking for a city?</p>
-    <form class="form">
-    <mat-form-field class="full-width">
-      <input matInput
-            placeholder="City"
-            aria-label="City"
-            [matAutocomplete]="auto"
-            [formControl]="cityCtrl">
-      <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngIf="city?.id" [value]="city.name" >
-          <img class="option-img" aria-hidden [src]="'http://openweathermap.org/img/wn/'+city.weather[0].icon+'@2x.png'" height="25">
-          <span>{{city.name}}</span> |
-          <small>{{city.weather[0].description}} <span> {{city.main.temp| number:'1.0-0'}}°C </span></small>
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
-  </form>
-  </div>
-  <div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">Cancel</button>
-    <button mat-button [mat-dialog-close]="city" cdkFocusInitial>Ok</button>
-  </div>
-  `
+  templateUrl: 'dialog.component.html'
 })
 
 export class DialogAddCity {
