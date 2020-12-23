@@ -41,15 +41,13 @@ export class HomeComponent implements OnInit {
     })
   }
   delete(favorite) {
-    this.http.delete<any>('http://localhost:3000/favorites/' + favorite.ID).subscribe({
-        next: data => {
+    this.favoriteService.deleteFavorite(favorite.ID).subscribe(() => {
             this.favorites = this.favorites.filter(data => data.ID != favorite.ID)
-        },
-        error: error => {
+        }, (error) => {
             this.errorMessage = error.message;
             console.error('There was an error!', error);
         }
-    })
+    )
   }
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogAddFavorites, {
@@ -59,20 +57,18 @@ export class HomeComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
-          this.http.post<any>('http://localhost:3000/favorites', {"Name": result,"Cities":[]}).subscribe({
-            next: (data) => {
+          this.favoriteService.createFavorite({"Name": result,"Cities":[]}).subscribe((data : Favorite) => {
                 let newfavorites: Favorite = {
                   "Name" : result,
                   "ID" : data.ID,
                   "Cities" : []
                 };
                 this.favorites.push(newfavorites);
-            },
-            error: error => {
+            }, (error) => {
                 this.errorMessage = error.message;
                 console.error('There was an error!', error);
             }
-        })
+        )
       }
     });
   }

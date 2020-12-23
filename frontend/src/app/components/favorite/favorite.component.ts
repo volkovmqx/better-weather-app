@@ -60,7 +60,7 @@ export class FavoriteComponent implements OnInit {
     })
   }
   synchronize(callback, errorCallback) {
-    this.http.put<any>('http://localhost:3000/favorites', this.favorite).subscribe({
+    this.favoriteService.updateFavorite(this.favorite).subscribe({
       next: (data) => {
          callback(data)
       },
